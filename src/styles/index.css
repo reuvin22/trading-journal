@@ -1,0 +1,67 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-h: var(--text-h);
+  --color-accent: var(--accent);
+  --color-accent-bg: var(--accent-bg);
+  --color-accent-border: var(--accent-border);
+
+  --font-sans: var(--sans);
+  --font-mono: var(--mono);
+
+  --shadow-card: var(--shadow);
+}
+
+:root {
+  --bg: #0a0d10;
+  --surface: #12161b;
+  --surface-2: #171c22;
+  --border: #232830;
+  --text: #c9d1d9;
+  --text-muted: #6b7280;
+  --text-h: #f4f6f8;
+  --accent: #21c384;
+  --accent-bg: rgba(33, 195, 132, 0.12);
+  --accent-border: rgba(33, 195, 132, 0.4);
+  --shadow: rgba(0, 0, 0, 0.4) 0 10px 30px -10px;
+
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-2: #f1f3f5;
+  --border: #e2e5e9;
+  --text: #4b5563;
+  --text-muted: #8a94a3;
+  --text-h: #10151b;
+  --accent: #17a673;
+  --accent-bg: rgba(23, 166, 115, 0.1);
+  --accent-border: rgba(23, 166, 115, 0.35);
+  --shadow: rgba(16, 24, 32, 0.08) 0 10px 30px -10px;
+
+  color-scheme: light;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    transition:
+      background-color 0.15s,
+      color 0.15s;
+  }
+
+  #root {
+    @apply flex min-h-svh flex-col;
+  }
+}
