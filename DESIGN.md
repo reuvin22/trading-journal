@@ -23,6 +23,36 @@ component needs a class, it goes in `className`, not a colocated stylesheet.
 - Config: [`vite.config.js`](vite.config.js) registers `@tailwindcss/vite` alongside
   `@vitejs/plugin-react` — both plugins are required, don't drop either.
 
+## Mobile responsive: mandatory, for everything
+
+**Every component, page, and feature must be mobile responsive.** This isn't optional polish —
+build it in from the first draft, the same way the Tailwind-only rule above is non-negotiable.
+Before considering any UI done, check it at a narrow viewport (≈375px) as well as desktop width.
+
+- Build mobile-first: unprefixed Tailwind classes are the small-screen styles, `sm:`/`lg:` layer on
+  top for larger viewports. Don't design for desktop and bolt on breakpoints after.
+- No fixed pixel widths that can exceed the viewport. Use `w-full`/`max-w-*` combinations (as the
+  `Modal`, `Login` card, and `DateRangeFilter`/`ProfileMenu` popovers already do), and clamp
+  anything anchored to screen edges with something like `max-w-[90vw]` (see `DateRangeFilter`'s
+  popover) so it can't run off a narrow screen.
+- A permanent multi-column desktop layout must collapse on mobile — either stack
+  (`flex-col lg:flex-row`, as `Todo.jsx` and the dashboard charts grid do), or become an off-canvas
+  overlay when stacking isn't viable. `Sidebar` is the reference implementation for the latter: on
+  mobile it's `fixed` + `-translate-x-full`/`translate-x-0` behind a `bg-black/50` backdrop,
+  toggled by a hamburger button (`lg:hidden`) in `DashboardLayout`'s header, and calls `onClose`
+  when a nav link is clicked so it doesn't stay open after navigating; at `lg:` it reverts to
+  `lg:static lg:translate-x-0` and its normal collapse-to-icons behavior. Reuse this shape for any
+  future permanent side panel — don't leave a fixed-width column unconditionally in the layout.
+  Reference and fine-grained detail should collapse in place, not overlay a global button/gesture.
+- Rows of controls that could overflow (a heading + a filter button, a table's pagination footer)
+  need `flex-wrap` and a `gap`, not a bare `justify-between` that assumes both items always fit on
+  one line. See the `Dashboard` header row and `DataTable`'s pagination footer.
+- Tables handle overflow with a horizontal scroll wrapper (`overflow-x-auto` around the `<table>`,
+  already built into `DataTable`) rather than trying to force every column to shrink to fit.
+- Fixed-position overlays anchored to a screen edge (toasts, in particular) should go full-width
+  with margins on mobile and only take a fixed width at a larger breakpoint — see the
+  `inset-x-4 ... sm:inset-x-auto sm:w-80` pattern in `Toast.jsx`.
+
 ## Themes
 
 Two themes: `dark` (default/brand) and `light`. Switching is done via a `data-theme` attribute on

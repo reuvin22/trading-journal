@@ -17,7 +17,7 @@ const STRATEGIES = [
 export default function Dashboard() {
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-semibold text-text-h">Dashboard</h1>
         <DateRangeFilter />
       </div>

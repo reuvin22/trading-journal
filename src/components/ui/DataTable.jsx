@@ -146,7 +146,7 @@ export default function DataTable({
       </div>
 
       {pageSize && filtered.length > 0 && (
-        <div className="flex items-center justify-between text-xs text-text-muted">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-text-muted">
           <span>
             Showing {(currentPage - 1) * pageSize + 1}–
             {Math.min(currentPage * pageSize, filtered.length)} of {filtered.length}

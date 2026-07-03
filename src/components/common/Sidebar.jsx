@@ -126,6 +126,14 @@ function ChevronIcon({ collapsed }) {
   )
 }
 
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+      <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 const NAV_ITEMS = [
   { to: '/dashboard', label: 'Dashboard', end: true, Icon: DashboardIcon },
   { to: '/dashboard/trades', label: 'Trades', Icon: TradesIcon },
@@ -137,58 +145,79 @@ const NAV_ITEMS = [
 const linkBase =
   'flex items-center gap-3 overflow-hidden rounded-lg px-3 py-2.5 text-sm whitespace-nowrap text-text-muted hover:bg-surface-2 hover:text-text-h [&>svg]:shrink-0'
 
-export default function Sidebar() {
+export default function Sidebar({ mobileOpen = false, onCloseMobile }) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <aside
-      className={`flex shrink-0 flex-col border-r border-border bg-surface transition-[width] duration-150 ${
-        collapsed ? 'w-16' : 'w-[220px]'
-      }`}
-    >
-      <div className="flex items-center gap-2 border-b border-border px-4 py-[18px]">
-        <span className="inline-flex shrink-0 text-accent">
-          <BrandIcon />
-        </span>
-        {!collapsed && (
-          <span className="flex-1 truncate text-sm font-semibold text-text-h">
+    <>
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/50 lg:hidden"
+          onClick={onCloseMobile}
+          aria-hidden="true"
+        />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 flex w-64 shrink-0 flex-col border-r border-border bg-surface transition-transform duration-200 lg:static lg:z-auto lg:translate-x-0 lg:transition-[width] ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        } ${collapsed ? 'lg:w-16' : 'lg:w-[220px]'}`}
+      >
+        <div className="flex items-center gap-2 border-b border-border px-4 py-[18px]">
+          <span className="inline-flex shrink-0 text-accent">
+            <BrandIcon />
+          </span>
+          <span className={`flex-1 truncate text-sm font-semibold text-text-h ${collapsed ? 'lg:hidden' : ''}`}>
             Trading Journal
           </span>
-        )}
-        <button
-          type="button"
-          className="ml-auto inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-transparent text-text-muted hover:bg-surface-2 hover:text-text-h"
-          onClick={() => setCollapsed((value) => !value)}
-          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-        >
-          <ChevronIcon collapsed={collapsed} />
-        </button>
-      </div>
-
-      <nav className="flex flex-1 flex-col gap-1 p-2">
-        {NAV_ITEMS.map(({ to, label, end, Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={end}
-            className={({ isActive }) =>
-              `${linkBase}${collapsed ? ' justify-center' : ''}${
-                isActive ? ' bg-accent-bg text-accent' : ''
-              }`
-            }
+          <button
+            type="button"
+            className="ml-auto hidden size-6 shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-transparent text-text-muted hover:bg-surface-2 hover:text-text-h lg:inline-flex"
+            onClick={() => setCollapsed((value) => !value)}
+            aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
-            <Icon />
-            {!collapsed && <span>{label}</span>}
-          </NavLink>
-        ))}
-      </nav>
+            <ChevronIcon collapsed={collapsed} />
+          </button>
+          <button
+            type="button"
+            className="ml-auto inline-flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-md border-none bg-transparent text-text-muted hover:bg-surface-2 hover:text-text-h lg:hidden"
+            onClick={onCloseMobile}
+            aria-label="Close menu"
+          >
+            <CloseIcon />
+          </button>
+        </div>
 
-      <div className="border-t border-border p-2">
-        <Link to="/" className={`${linkBase}${collapsed ? ' justify-center' : ''}`}>
-          <LogoutIcon />
-          {!collapsed && <span>Logout</span>}
-        </Link>
-      </div>
-    </aside>
+        <nav className="flex flex-1 flex-col gap-1 p-2">
+          {NAV_ITEMS.map(({ to, label, end, Icon }) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              onClick={onCloseMobile}
+              className={({ isActive }) =>
+                `${linkBase}${collapsed ? ' lg:justify-center' : ''}${
+                  isActive ? ' bg-accent-bg text-accent' : ''
+                }`
+              }
+            >
+              <Icon />
+              <span className={collapsed ? 'lg:hidden' : ''}>{label}</span>
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="border-t border-border p-2">
+          <Link
+            to="/"
+            onClick={onCloseMobile}
+            className={`${linkBase}${collapsed ? ' lg:justify-center' : ''}`}
+          >
+            <LogoutIcon />
+            <span className={collapsed ? 'lg:hidden' : ''}>Logout</span>
+          </Link>
+        </div>
+      </aside>
+    </>
   )
 }

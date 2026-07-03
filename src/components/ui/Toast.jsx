@@ -58,7 +58,7 @@ export function ToastProvider({ children }) {
     <ToastContext.Provider value={value}>
       {children}
       {createPortal(
-        <div className="fixed right-5 bottom-5 z-50 flex w-80 flex-col gap-2">
+        <div className="fixed inset-x-4 bottom-4 z-50 flex flex-col gap-2 sm:inset-x-auto sm:right-5 sm:bottom-5 sm:w-80">
           {toasts.map((toast) => (
             <div
               key={toast.id}

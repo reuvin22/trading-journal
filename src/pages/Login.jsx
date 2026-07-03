@@ -46,7 +46,7 @@ export default function Login() {
   const isSignup = mode === 'signup'
 
   return (
-    <main className="relative flex min-h-svh flex-1 items-center justify-center overflow-hidden p-6">
+    <main className="relative flex min-h-svh flex-1 items-center justify-center overflow-hidden p-4 sm:p-6">
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.35] [background-image:linear-gradient(var(--border)_1px,transparent_1px),linear-gradient(90deg,var(--border)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(circle_at_center,black,transparent_75%)]"
@@ -56,7 +56,7 @@ export default function Login() {
         <ThemeToggle />
       </div>
 
-      <div className="relative w-full max-w-[400px] rounded-xl border border-border bg-surface px-8 py-9 shadow-card">
+      <div className="relative w-full max-w-[400px] rounded-xl border border-border bg-surface px-6 py-8 shadow-card sm:px-8 sm:py-9">
         <div className="mb-6 flex items-center justify-end gap-2">
           <a
             href="#"
