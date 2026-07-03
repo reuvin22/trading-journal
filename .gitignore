@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+CODING_PREFERENCES.md
+DESIGN.md
