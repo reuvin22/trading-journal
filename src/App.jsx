@@ -6,6 +6,7 @@ import Trades from './pages/Trades'
 import Calendar from './pages/Calendar'
 import Journal from './pages/Journal'
 import Todo from './pages/Todo'
+import Settings from './pages/Settings'
 import Profile from './pages/Profile'
 import Billing from './pages/Billing'
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="calendar" element={<Calendar />} />
         <Route path="journal" element={<Journal />} />
         <Route path="todo" element={<Todo />} />
+        <Route path="settings" element={<Settings />} />
         <Route path="profile" element={<Profile />} />
         <Route path="billing" element={<Billing />} />
       </Route>

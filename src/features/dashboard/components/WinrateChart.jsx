@@ -8,7 +8,7 @@ export default function WinrateChart() {
   const offset = CIRCUMFERENCE * (1 - WIN_RATE / 100)
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex h-full flex-col">
       <CardTitle>Winrate</CardTitle>
       <div className="relative mt-1 mb-4 flex justify-center">
         <svg viewBox="0 0 140 140" width="140" height="140">

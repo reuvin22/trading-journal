@@ -61,7 +61,7 @@ export default function TradesTable() {
   const [selectedTrade, setSelectedTrade] = useState(null)
 
   return (
-    <Card>
+    <Card className="h-full">
       <CardTitle>Recent trades</CardTitle>
       <DataTable
         columns={COLUMNS}

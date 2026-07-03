@@ -2,7 +2,7 @@ import Card, { CardTitle } from '../../../components/ui/Card'
 
 export default function BarListCard({ title, items }) {
   return (
-    <Card className="flex flex-col">
+    <Card className="flex h-full flex-col">
       <CardTitle>{title}</CardTitle>
       <ul className="m-0 flex list-none flex-col gap-3.5 p-0">
         {items.map((item) => (

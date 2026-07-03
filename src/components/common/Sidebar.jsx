@@ -126,6 +126,22 @@ function ChevronIcon({ collapsed }) {
   )
 }
 
+function SettingsIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+      <path
+        d="M4 6h5M13 6h7M4 12h11M19 12h1M4 18h2M10 18h10"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <circle cx="9.5" cy="6" r="2" fill="currentColor" />
+      <circle cx="16" cy="12" r="2" fill="currentColor" />
+      <circle cx="6" cy="18" r="2" fill="currentColor" />
+    </svg>
+  )
+}
+
 function CloseIcon() {
   return (
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
@@ -207,7 +223,19 @@ export default function Sidebar({ mobileOpen = false, onCloseMobile }) {
           ))}
         </nav>
 
-        <div className="border-t border-border p-2">
+        <div className="flex flex-col gap-1 border-t border-border p-2">
+          <NavLink
+            to="/dashboard/settings"
+            onClick={onCloseMobile}
+            className={({ isActive }) =>
+              `${linkBase}${collapsed ? ' lg:justify-center' : ''}${
+                isActive ? ' bg-accent-bg text-accent' : ''
+              }`
+            }
+          >
+            <SettingsIcon />
+            <span className={collapsed ? 'lg:hidden' : ''}>Settings</span>
+          </NavLink>
           <Link
             to="/"
             onClick={onCloseMobile}
